@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Salesforce Default Page",
+  "version": "0.16",
+  "description": "Set a default page to open when first logging into Salesforce",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.salesforce.com/*",
+    "*://*.force.com/*",
+    "*://*.lightning.force.com/*",
+    "*://*.my.salesforce.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.salesforce.com/*",
+        "*://*.force.com/*",
+        "*://*.lightning.force.com/*",
+        "*://*.my.salesforce.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Salesforce Default Page"
+  }
+}

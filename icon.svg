@@ -1,0 +1,41 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00a1e0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0176d3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="homeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f0f8ff;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with Salesforce blue gradient -->
+  <rect width="128" height="128" rx="16" fill="url(#bgGradient)"/>
+  
+  <!-- Modern home design inspired by Salesforce Lightning -->
+  <g transform="translate(64, 64)">
+    <!-- House base (rounded rectangle) -->
+    <rect x="-20" y="-8" width="40" height="32" rx="3" fill="url(#homeGradient)" opacity="0.95"/>
+    
+    <!-- Roof (modern angular design) -->
+    <path d="M-26 -8 L0 -28 L26 -8 L20 -8 L0 -22 L-20 -8 Z" fill="url(#homeGradient)" opacity="0.95"/>
+    
+    <!-- Door (Lightning-style) -->
+    <rect x="-4" y="8" width="8" height="16" rx="1" fill="#0176d3"/>
+    <circle cx="2" cy="16" r="1" fill="#ffffff"/>
+    
+    <!-- Windows (Lightning card style) -->
+    <rect x="-14" y="-2" width="6" height="6" rx="1" fill="#0176d3" opacity="0.8"/>
+    <rect x="8" y="-2" width="6" height="6" rx="1" fill="#0176d3" opacity="0.8"/>
+    
+    <!-- Subtle shadow -->
+    <ellipse cx="0" cy="26" rx="22" ry="3" fill="#000000" opacity="0.1"/>
+  </g>
+  
+  <!-- Small redirect arrow (subtle) -->
+  <g transform="translate(95, 95)" opacity="0.7">
+    <path d="M-8 0 Q-4 -4 0 0" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M-2 -2 L0 0 L-2 2" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

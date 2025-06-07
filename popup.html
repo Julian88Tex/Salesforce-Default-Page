@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        :root {
+            /* SLDS Light Theme */
+            --slds-brand: #0176d3;
+            --slds-brand-accessible: #0053a5;
+            --slds-color-background: #ffffff;
+            --slds-color-background-alt: #f3f3f3;
+            --slds-color-background-alt-2: #eeeeee;
+            --slds-color-foreground: #ffffff;
+            --slds-color-text-default: #080707;
+            --slds-color-text-weak: #706e6b;
+            --slds-color-text-placeholder: #a8a8a8;
+            --slds-color-border: #c9c9c9;
+            --slds-color-border-strong: #747474;
+            --slds-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --slds-shadow-2: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            /* SLDS Dark Theme */
+            --slds-brand: #1b96ff;
+            --slds-brand-accessible: #0070d2;
+            --slds-color-background: #16181d;
+            --slds-color-background-alt: #1c1b25;
+            --slds-color-background-alt-2: #2a2e33;
+            --slds-color-foreground: #1c1b25;
+            --slds-color-text-default: #f3f3f3;
+            --slds-color-text-weak: #a8a8a8;
+            --slds-color-text-placeholder: #747474;
+            --slds-color-border: #444854;
+            --slds-color-border-strong: #706e6b;
+            --slds-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+            --slds-shadow-2: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 320px;
+            margin: 0;
+            padding: 0;
+            font-family: "Salesforce Sans", -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            background: var(--slds-color-background);
+            color: var(--slds-color-text-default);
+            transition: all 0.2s ease;
+        }
+        
+        .slds-card {
+            background: var(--slds-color-background);
+            border: 1px solid var(--slds-color-border);
+            border-radius: 0.25rem;
+            box-shadow: var(--slds-shadow-1);
+        }
+        
+        .slds-card__header {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--slds-color-border);
+        }
+        
+        .slds-card__body {
+            padding: 1rem;
+        }
+        
+        .slds-media {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .slds-media__figure {
+            margin-right: 0.75rem;
+        }
+        
+        .slds-media__body {
+            flex: 1;
+        }
+        
+        .slds-icon_container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            background: linear-gradient(135deg, #00a1e0 0%, var(--slds-brand) 100%);
+            position: relative;
+        }
+        
+        .slds-icon_container::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 2l6 4v8H10v-4H6v4H2V6l6-4z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .slds-text-heading_small {
+            font-size: 0.875rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--slds-color-text-default);
+            margin: 0;
+        }
+        
+        .slds-text-body_small {
+            font-size: 0.75rem;
+            color: var(--slds-color-text-weak);
+            margin: 0.25rem 0 0 0;
+        }
+        
+        .slds-form-element {
+            margin-bottom: 1rem;
+        }
+        
+        .slds-form-element__label {
+            display: inline-block;
+            color: var(--slds-color-text-default);
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.0625rem;
+        }
+        
+        .slds-switch {
+            width: 3rem;
+            height: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .slds-switch__checkbox {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(1px, 1px, 1px, 1px);
+        }
+        
+        .slds-switch__track {
+            display: block;
+            width: 3rem;
+            height: 1.5rem;
+            background: var(--slds-color-border);
+            border-radius: 0.75rem;
+            transition: background 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .slds-switch__thumb {
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: var(--slds-color-foreground);
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+            box-shadow: var(--slds-shadow-2);
+        }
+        
+        .slds-switch__checkbox:checked + .slds-switch__track {
+            background: var(--slds-brand);
+        }
+        
+        .slds-switch__checkbox:checked + .slds-switch__track .slds-switch__thumb {
+            transform: translateX(1.5rem);
+        }
+        
+        .slds-switch__checkbox:disabled + .slds-switch__track {
+            background: var(--slds-color-border);
+            cursor: not-allowed;
+        }
+        
+        .slds-switch__checkbox:disabled + .slds-switch__track .slds-switch__thumb {
+            background: var(--slds-color-background-alt);
+        }
+        
+        .slds-select {
+            width: 100%;
+            height: 2.25rem;
+            padding: 0 0.75rem;
+            background: var(--slds-color-background);
+            border: 1px solid var(--slds-color-border);
+            border-radius: 0.25rem;
+            color: var(--slds-color-text-default);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            transition: border-color 0.1s linear, box-shadow 0.1s linear;
+        }
+        
+        .slds-select:focus {
+            outline: none;
+            border-color: var(--slds-brand);
+            box-shadow: 0 0 3px #0176d3;
+        }
+        
+        .slds-input {
+            width: 100%;
+            height: 2.25rem;
+            padding: 0 0.75rem;
+            background: var(--slds-color-background);
+            border: 1px solid var(--slds-color-border);
+            border-radius: 0.25rem;
+            color: var(--slds-color-text-default);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            transition: border-color 0.1s linear, box-shadow 0.1s linear;
+            margin-top: 0.5rem;
+        }
+        
+        .slds-input:focus {
+            outline: none;
+            border-color: var(--slds-brand);
+            box-shadow: 0 0 3px #0176d3;
+        }
+        
+        .slds-input::placeholder {
+            color: var(--slds-color-text-placeholder);
+        }
+        
+        .slds-input-group {
+            display: flex;
+            margin-top: 0.5rem;
+        }
+        
+        .slds-input-group .slds-input {
+            flex: 1;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+            margin-top: 0;
+            min-width: 0; /* Allow shrinking */
+        }
+        
+        .slds-button_neutral {
+            background: var(--slds-color-background-alt);
+            border: 1px solid var(--slds-color-border);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            color: var(--slds-color-text-default);
+            font-size: 0.65rem;
+            padding: 0 0.5rem;
+            white-space: nowrap;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.1s linear;
+            flex-shrink: 0; /* Don't shrink the button */
+        }
+        
+        .slds-button_neutral:hover {
+            background: var(--slds-color-background-alt-2);
+        }
+        
+        .slds-button_neutral:disabled {
+            background: var(--slds-color-border);
+            color: var(--slds-color-text-placeholder);
+            cursor: not-allowed;
+        }
+        
+        .slds-grid {
+            display: flex;
+        }
+        
+        .slds-grid_align-spread {
+            justify-content: space-between;
+        }
+        
+        .slds-grid_vertical-align-center {
+            align-items: center;
+        }
+        
+        .slds-col {
+            flex: 1;
+        }
+        
+        .slds-button {
+            padding: 0.25rem 0.5rem;
+            background: var(--slds-color-background-alt);
+            border: 1px solid var(--slds-color-border);
+            border-radius: 0.25rem;
+            color: var(--slds-color-text-default);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.1s linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slds-button:hover {
+            background: var(--slds-color-background-alt-2);
+        }
+        
+        .slds-button_icon {
+            width: 2rem;
+            height: 2rem;
+            padding: 0.375rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .slds-text-body_regular {
+            font-size: 0.875rem;
+            color: var(--slds-color-text-weak);
+            line-height: 1.5;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--slds-color-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="slds-card">
+        <div class="slds-card__header">
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container"></span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-text-heading_small">Salesforce Default Page</h2>
+                    <p class="slds-text-body_small">Set your default landing page</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slds-card__body">
+            <div class="slds-form-element">
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                    <label class="slds-form-element__label">Active</label>
+                    <div class="slds-switch">
+                        <input type="checkbox" id="activeToggle" class="slds-switch__checkbox" checked>
+                        <label for="activeToggle" class="slds-switch__track">
+                            <span class="slds-switch__thumb"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-form-element">
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                    <label class="slds-form-element__label">Dark Mode</label>
+                    <div class="slds-switch">
+                        <input type="checkbox" id="themeToggleSwitch" class="slds-switch__checkbox">
+                        <label for="themeToggleSwitch" class="slds-switch__track">
+                            <span class="slds-switch__thumb"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="defaultPageSelect">Default Page</label>
+                <select id="defaultPageSelect" class="slds-select">
+                    <option value="deployment">Deployment Status</option>
+                    <option value="users">User Management</option>
+                    <option value="profiles">Enhanced Profiles</option>
+                    <option value="permsets">Permission Sets</option>
+                    <option value="flows">Flows</option>
+                    <option value="apex">Apex Classes</option>
+                    <option value="objects">Object Manager</option>
+                    <option value="home">Home Page</option>
+                    <option value="custom">Custom Page...</option>
+                </select>
+                <div id="customPageGroup" class="slds-input-group hidden">
+                    <input type="text" id="customPageInput" class="slds-input" placeholder="/lightning/setup/EnhancedProfiles/home" />
+                    <button type="button" id="useCurrentPageBtn" class="slds-button slds-button_neutral">Capture</button>
+                </div>
+            </div>
+            
+            <div class="slds-text-body_regular">
+                Only redirects after initial login. Won't affect page refreshes or navigation within the org.
+            </div>
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

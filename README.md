@@ -12,11 +12,9 @@ Skip the Salesforce home page - automatically redirect to your preferred Lightni
 ## 🚀 Quick Setup
 
 1. **Download files** to a folder called `salesforce-default-page`
-2. **Create 4 PNG icons** (any house images work fine):
-   - `icon16.png`, `icon32.png`, `icon48.png`, `icon128.png`
-3. **Open Chrome** → `chrome://extensions/`
-4. **Turn on "Developer mode"** → Click "Load unpacked"
-5. **Select your folder** → Extension appears in toolbar
+2. **Open Chrome** → `chrome://extensions/`
+3. **Turn on "Developer mode"** → Click "Load unpacked"
+4. **Select your folder** → Extension appears in toolbar
 
 ## 🧪 Test It
 
@@ -31,11 +29,7 @@ salesforce-default-page/
 ├── manifest.json
 ├── popup.html
 ├── popup.js
-├── content.js
-├── icon16.png
-├── icon32.png
-├── icon48.png
-└── icon128.png
+└── content.js
 ```
 
 ## 💡 Tips

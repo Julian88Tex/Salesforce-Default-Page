@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const customPageGroup = document.getElementById('customPageGroup');
     const useCurrentPageBtn = document.getElementById('useCurrentPageBtn');
     
+    // Display extension version
+    const version = chrome.runtime.getManifest().version;
+    const versionDisplay = document.getElementById('version-display');
+    if (versionDisplay) {
+        versionDisplay.textContent = `v${version}`;
+    }
+    
     // Check if all required elements exist
     if (!activeToggle || !themeToggleSwitch || !defaultPageSelect || !customPageInput || !customPageGroup || !useCurrentPageBtn) {
         console.error('Required DOM elements not found:', {

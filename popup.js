@@ -95,6 +95,27 @@ document.addEventListener('DOMContentLoaded', function() {
             if (value.startsWith('/lightning/lightning')) {
                 value = value.replace(/^\/lightning\/lightning/, '/lightning');
             }
+            // Lightning page check
+            const notLightningIndicator = document.getElementById('notLightningIndicator');
+            const isLightning = value.startsWith('/lightning/') || value.startsWith('https://') && value.includes('/lightning/');
+            if (notLightningIndicator) {
+                notLightningIndicator.style.display = isLightning || !value ? 'none' : '';
+            }
+            if (useCurrentPageBtn) {
+                if (!isLightning && value) {
+                    useCurrentPageBtn.disabled = true;
+                    useCurrentPageBtn.classList.add('slds-button_disabled');
+                    useCurrentPageBtn.style.background = '#e0e0e0';
+                    useCurrentPageBtn.style.color = '#888';
+                    useCurrentPageBtn.style.borderColor = '#ccc';
+                } else {
+                    useCurrentPageBtn.disabled = false;
+                    useCurrentPageBtn.classList.remove('slds-button_disabled');
+                    useCurrentPageBtn.style.background = '';
+                    useCurrentPageBtn.style.color = '';
+                    useCurrentPageBtn.style.borderColor = '';
+                }
+            }
             if (value) {
                 chrome.storage.sync.set({'defaultPage': value, 'customPage': value});
             }
@@ -103,7 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle "Use Current Page" button
     if (useCurrentPageBtn) {
+        useCurrentPageBtn.textContent = 'Use Current Page';
         useCurrentPageBtn.addEventListener('click', function() {
+            if (useCurrentPageBtn.disabled) return;
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
                 if (tabs[0]) {
                     const url = tabs[0].url;
@@ -113,15 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         customPageInput.value = lightningPath;
                         chrome.storage.sync.set({'defaultPage': lightningPath, 'customPage': lightningPath});
                         
-                        // Visual feedback - show the captured path
-                        useCurrentPageBtn.textContent = 'Captured!';
+                        // Visual feedback - show the updated path
+                        useCurrentPageBtn.textContent = 'Updated';
                         
-                        // Briefly highlight the input to show the captured value
+                        // Briefly highlight the input to show the updated value
                         customPageInput.style.backgroundColor = '#e8f5e8';
                         customPageInput.style.borderColor = '#4caf50';
                         
                         setTimeout(() => {
-                            useCurrentPageBtn.textContent = 'Capture';
+                            useCurrentPageBtn.textContent = 'Use Current Page';
                             customPageInput.style.backgroundColor = '';
                             customPageInput.style.borderColor = '';
                         }, 2000);
@@ -179,15 +202,26 @@ document.addEventListener('DOMContentLoaded', function() {
         if (activeToggle) {
             activeToggle.checked = isEnabled;
         }
-        
+        if (customPageInput) {
+            customPageInput.disabled = !isEnabled;
+            if (!isEnabled) {
+                customPageInput.classList.add('slds-disabled');
+            } else {
+                customPageInput.classList.remove('slds-disabled');
+            }
+        }
+        if (useCurrentPageBtn) {
+            useCurrentPageBtn.disabled = !isEnabled;
+            if (!isEnabled) {
+                useCurrentPageBtn.classList.add('slds-disabled');
+            } else {
+                useCurrentPageBtn.classList.remove('slds-disabled');
+            }
+        }
         if (isEnabled) {
             if (defaultPageSelect) defaultPageSelect.disabled = false;
-            if (customPageInput) customPageInput.disabled = false;
-            if (useCurrentPageBtn) useCurrentPageBtn.disabled = false;
         } else {
             if (defaultPageSelect) defaultPageSelect.disabled = true;
-            if (customPageInput) customPageInput.disabled = true;
-            if (useCurrentPageBtn) useCurrentPageBtn.disabled = true;
         }
     }
     
@@ -200,6 +234,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!lightningPath) {
                 useCurrentPageBtn.disabled = true;
                 useCurrentPageBtn.textContent = 'Not Lightning';
+                useCurrentPageBtn.classList.add('slds-button_disabled');
+                useCurrentPageBtn.style.background = '#e0e0e0';
+                useCurrentPageBtn.style.color = '#888';
+                useCurrentPageBtn.style.borderColor = '#ccc';
+            } else {
+                useCurrentPageBtn.disabled = false;
+                useCurrentPageBtn.textContent = 'Use Current Page';
+                useCurrentPageBtn.classList.remove('slds-button_disabled');
+                useCurrentPageBtn.style.background = '';
+                useCurrentPageBtn.style.color = '';
+                useCurrentPageBtn.style.borderColor = '';
             }
         }
     });

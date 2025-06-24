@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Salesforce Default Page",
-  "version": "0.20",
+  "version": "0.39",
   "description": "Set a default page to open when first logging into Salesforce",
   "permissions": [
     "activeTab",
@@ -29,5 +29,8 @@
   "action": {
     "default_popup": "popup.html",
     "default_title": "Salesforce Default Page"
+  },
+  "icons": {
+    "128": "icon-128.png"
   }
 }

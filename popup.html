@@ -21,20 +21,20 @@
         }
         
         [data-theme="dark"] {
-            /* SLDS Dark Theme */
-            --slds-brand: #1b96ff;
-            --slds-brand-accessible: #0070d2;
-            --slds-color-background: #16181d;
-            --slds-color-background-alt: #1c1b25;
-            --slds-color-background-alt-2: #2a2e33;
-            --slds-color-foreground: #1c1b25;
-            --slds-color-text-default: #f3f3f3;
-            --slds-color-text-weak: #a8a8a8;
-            --slds-color-text-placeholder: #747474;
+            /* SLDS Dark Theme - softened */
+            --slds-brand: #339cff;
+            --slds-brand-accessible: #339cff;
+            --slds-color-background: #23272f;
+            --slds-color-background-alt: #2c303a;
+            --slds-color-background-alt-2: #353945;
+            --slds-color-foreground: #23272f;
+            --slds-color-text-default: #e0e3ea;
+            --slds-color-text-weak: #b0b3bb;
+            --slds-color-text-placeholder: #888c99;
             --slds-color-border: #444854;
-            --slds-color-border-strong: #706e6b;
-            --slds-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
-            --slds-shadow-2: 0 2px 4px rgba(0, 0, 0, 0.3);
+            --slds-color-border-strong: #5a5e6b;
+            --slds-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.25);
+            --slds-shadow-2: 0 2px 4px rgba(0, 0, 0, 0.18);
         }
         
         * {
@@ -328,19 +328,23 @@
             padding-top: 1rem;
             border-top: 1px solid var(--slds-color-border);
         }
+        
+        .slds-disabled {
+            background: #e0e0e0 !important;
+            color: #888 !important;
+            border-color: #ccc !important;
+            cursor: not-allowed !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+        }
     </style>
 </head>
 <body>
     <div class="slds-card">
         <div class="slds-card__header">
-            <div class="slds-media">
-                <div class="slds-media__figure">
-                    <span class="slds-icon_container"></span>
-                </div>
-                <div class="slds-media__body">
-                    <h2 class="slds-text-heading_small">Salesforce Default Page</h2>
-                    <p class="slds-text-body_small">Set your default landing page</p>
-                </div>
+            <div style="display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                <img src="icon-128.png" alt="Salesforce Default Page" style="width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; display: block;" />
+                <h2 class="slds-text-heading_small" style="margin: 0; font-size: 1.25rem; font-weight: bold; text-align: left;">Salesforce Default Page</h2>
             </div>
         </div>
         
@@ -369,9 +373,9 @@
                 </div>
             </div>
             
-            <div class="slds-form-element">
-                <label class="slds-form-element__label" for="defaultPageSelect">Default Page</label>
-                <select id="defaultPageSelect" class="slds-select">
+            <div class="slds-form-element" style="display: flex; align-items: center; gap: 0.75rem;">
+                <label class="slds-form-element__label" for="defaultPageSelect" style="margin-bottom: 0;">DEFAULT PAGE</label>
+                <select id="defaultPageSelect" class="slds-select" style="flex: 1;">
                     <option value="deployment">Deployment Status</option>
                     <option value="users">User Management</option>
                     <option value="profiles">Enhanced Profiles</option>
@@ -381,13 +385,18 @@
                     <option value="objects">Object Manager</option>
                     <option value="custom">Custom Page...</option>
                 </select>
-                <div id="customPageGroup" class="slds-form-element hidden">
-                    <input type="text" id="customPageInput" class="slds-input" placeholder="/lightning/setup/DeployStatus/home or full URL" />
-                </div>
+            </div>
+            <div id="customPageGroup" class="slds-form-element hidden" style="margin-top: 0.5rem;">
+                <input type="text" id="customPageInput" class="slds-input" placeholder="/lightning/setup/DeployStatus/home or full URL" style="width: 100%; margin-bottom: 0.5rem;" />
+                <button type="button" id="useCurrentPageBtn" class="slds-button slds-button_brand" style="width: 100%; font-size: 1rem; height: 2.5rem;">Use Current Page</button>
+                <span id="notLightningIndicator" class="slds-text-body_small slds-text-color_weak" style="display:none;">Not Salesforce Lightning Page</span>
             </div>
             
-            <div class="slds-text-body_regular">
-                Only redirects after initial login. Won't affect page refreshes or navigation within the org.
+            <div class="slds-text-body_regular" style="font-size: 0.72rem !important; margin-top: 0.7rem;">
+                Redirects to a desired default page after initial login.
+            </div>
+            <div style="text-align: right; margin-top: 0.5rem;">
+                <a href="https://github.com/Julian88Tex/Salesforce-Default-Page/issues" target="_blank" rel="noopener noreferrer" style="font-size: 0.75rem; color: var(--slds-brand); text-decoration: underline; opacity: 0.7;">Report Issues</a>
             </div>
         </div>
     </div>

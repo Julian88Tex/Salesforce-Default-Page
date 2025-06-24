@@ -11,12 +11,29 @@ Skip the Salesforce home page and automatically redirect to your preferred Sales
 - **Smart detection**: Only redirects after a fresh login (not on page refreshes or navigation)
 - **Works everywhere**: Supports Salesforce CLI (`sf org open`), all org types, sandbox and production
 
-## 🚀 Quick Setup
+## 🚀 Installation
 
-1. **Download files** to a folder called `salesforce-default-page`
-2. **Open Chrome** → `chrome://extensions/`
-3. **Turn on "Developer mode"** → Click "Load unpacked"
-4. **Select your folder** → Extension appears in the toolbar
+There are two ways to install this extension.
+
+### Option 1: For Most Users (Easy)
+1. Go to the **[Releases page](https://github.com/Julian88Tex/Salesforce-Default-Page/releases)**.
+2. Under the latest release, download the `Source code (zip)` file.
+3. Unzip the file. You will have a folder named something like `Salesforce-Default-Page-0.41`.
+
+### Option 2: For Developers (Using Git)
+Clone this repository to your local machine:
+```sh
+git clone https://github.com/Julian88Tex/Salesforce-Default-Page.git
+```
+This will create a `Salesforce-Default-Page` folder with the latest code.
+
+### Loading the Extension in Chrome
+Once you have the extension folder, follow these steps:
+1. **Open Chrome** and navigate to `chrome://extensions/`.
+2. **Turn on "Developer mode"** in the top-right corner.
+3. Click **"Load unpacked"**.
+4. **Select the extension folder** (e.g., `Salesforce-Default-Page`).
+5. The extension will now be active and appear in your Chrome toolbar.
 
 ## 🧪 How to Use
 
@@ -30,9 +47,8 @@ Skip the Salesforce home page and automatically redirect to your preferred Sales
 
 ## 🛠️ Reporting Issues
 
-- Click the **Report Issues**
-  [https://github.com/Julian88Tex/Salesforce-Default-Page/issues](https://github.com/Julian88Tex/Salesforce-Default-Page/issues)
-- Please include your Chrome version, OS, and a description of the issue.
+- Click the **Report Issues** link in the extension popup or go directly to the **[Issues page](https://github.com/Julian88Tex/Salesforce-Default-Page/issues)**.
+- Please check for existing issues and provide as much detail as possible, including your browser/OS version and steps to reproduce.
 
 ## 💡 Testing Tips
 

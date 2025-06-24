@@ -1,0 +1,91 @@
+name: Bug Report
+description: Create a report to help us improve
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps To Reproduce
+      description: Please provide steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - macOS
+        - Windows
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: "e.g. Chrome, Brave"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Extension Version
+      placeholder: "e.g. 0.39"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "---"
+  - type: checkboxes
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting Checklist
+      description: |
+        *How to enable in Incognito Mode:*
+        1. Go to `chrome://extensions/`.
+        2. Find the **Salesforce Default Page** extension and click **Details**.
+        3. Turn on the **Allow in Incognito** toggle.
+        4. Open a new Incognito window and test again.
+      options:
+        - label: I have tried this in Incognito mode and the issue still persists.
+          required: true
+  - type: textarea
+    id: conflicting-extensions
+    attributes:
+      label: Potentially Conflicting Extensions
+      description: "Please list any other Chrome extensions you have enabled that modify Salesforce, network requests, or page content. This helps us identify conflicts."
+      placeholder: |
+        Examples:
+        - Other Salesforce productivity tools
+        - Requestly
+        - Skip Redirect
+        - Ad blockers or script blockers
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here. 

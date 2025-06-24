@@ -90,7 +90,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle custom page input changes
     if (customPageInput) {
         customPageInput.addEventListener('input', function() {
-            const value = customPageInput.value.trim();
+            let value = customPageInput.value.trim();
+            // Remove leading duplicate '/lightning' if present
+            if (value.startsWith('/lightning/lightning')) {
+                value = value.replace(/^\/lightning\/lightning/, '/lightning');
+            }
             if (value) {
                 chrome.storage.sync.set({'defaultPage': value, 'customPage': value});
             }

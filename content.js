@@ -1,4 +1,5 @@
-// content.js - Lightning Experience default page redirect after login (v0.16)
+// content.js - Lightning Experience default page redirect after login (v0.20)
+console.log('[SF Default Page EXT] Content script loaded', { time: Date.now(), url: window.location.href });
 
 (function() {
     'use strict';
@@ -64,18 +65,27 @@
         const referrer = document.referrer;
         console.log('Referrer:', referrer);
         
-        // No referrer usually means direct access (like SF CLI)
+        // If no referrer, only treat as login if URL matches /secur/frontdoor.jsp?otp= (CLI support)
         if (!referrer) {
-            console.log('No referrer - likely direct access or CLI');
-            return true;
+            if (/\/secur\/frontdoor\.jsp\?otp=/.test(window.location.pathname + window.location.search)) {
+                console.log('No referrer, but URL matches /secur/frontdoor.jsp?otp= (CLI detected)');
+                return true;
+            } else {
+                console.log('No referrer and not CLI frontdoor.jsp, skipping redirect for empty referrer.');
+                return false;
+            }
         }
         
-        // Check if referrer is login page
-        if (referrer.includes('/login') || 
+        // Check if referrer is login page, contentDoor, or file.force.com
+        if (
+            referrer.includes('/login') || 
             referrer.includes('/secur/login') || 
             referrer.includes('login.salesforce.com') ||
-            referrer.includes('/secur/contentDoor')) {  // Also from contentDoor
-            console.log('Came from login page or contentDoor');
+            referrer.includes('test.salesforce.com') ||
+            referrer.includes('/secur/contentDoor') ||
+            referrer.includes('.file.force.com')
+        ) {
+            console.log('Came from login page, contentDoor, or file.force.com');
             return true;
         }
         
@@ -153,7 +163,7 @@
     
     // Main redirect function
     function performRedirect() {
-        console.log('Attempting redirect...');
+        console.log('[SF Default Page EXT] Attempting redirect...', { time: Date.now(), url: window.location.href });
         
         // Only proceed if this is Lightning Experience
         if (!isLightningExperience()) {
@@ -183,13 +193,13 @@
         
         // Get user's default page preference
         chrome.storage.sync.get(['defaultPage', 'redirectEnabled'], function(result) {
-            console.log('Storage result:', result);
+            console.log('[SF Default Page EXT] Storage result:', result, { time: Date.now() });
             
             const isEnabled = result.redirectEnabled !== false; // Default to true
             const defaultPage = result.defaultPage || 'deployment';
             
             if (!isEnabled) {
-                console.log('Extension disabled, skipping redirect');
+                console.log('[SF Default Page EXT] Extension disabled, skipping redirect', { time: Date.now() });
                 return;
             }
             
@@ -197,28 +207,55 @@
             markAsRedirected();
             
             const targetUrl = getTargetUrl(defaultPage);
-            console.log('Salesforce Lightning Default Page: Redirecting to', targetUrl);
+            console.log('[SF Default Page EXT] Redirecting to:', targetUrl, { time: Date.now() });
             
             // Use replace to avoid back button issues
             window.location.replace(targetUrl);
+            console.log('[SF Default Page EXT] Redirect triggered', { time: Date.now() });
         });
     }
     
     // Execute redirect with appropriate timing
     function initRedirect() {
         console.log('Initializing redirect check...');
-        
         // For contentDoor pages, wait a bit longer as they auto-redirect
-        const delay = currentUrl.includes('/secur/contentDoor') ? 1000 : 500;
-        
+        const isContentDoor = currentUrl.includes('/secur/contentDoor');
+        const delay = isContentDoor ? 1500 : 500;
+
+        function tryRedirectWithObserver() {
+            let redirected = false;
+            function tryRedirect() {
+                if (!redirected) {
+                    redirected = true;
+                    performRedirect();
+                }
+            }
+            // Try once after delay
+            setTimeout(tryRedirect, delay);
+            // For contentDoor, also observe DOM changes for up to 3 seconds
+            if (isContentDoor) {
+                const observer = new MutationObserver((mutations, obs) => {
+                    if (!redirected) {
+                        console.log('MutationObserver: DOM changed, trying redirect again.');
+                        tryRedirect();
+                    }
+                });
+                observer.observe(document, {childList: true, subtree: true});
+                setTimeout(() => {
+                    observer.disconnect();
+                    console.log('MutationObserver: Stopped observing after 3s.');
+                }, 3000);
+            }
+        }
+
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 console.log(`DOM loaded, checking redirect in ${delay}ms`);
-                setTimeout(performRedirect, delay);
+                tryRedirectWithObserver();
             });
         } else {
             console.log(`DOM already loaded, checking redirect in ${delay}ms`);
-            setTimeout(performRedirect, delay);
+            tryRedirectWithObserver();
         }
     }
     
@@ -237,5 +274,16 @@
         }
         sendResponse({status: 'ok'});
     });
+    
+    // At the end, try to detect globals injected by other extensions
+    try {
+        for (const key in window) {
+            if (key.toLowerCase().includes('requestly') || key.toLowerCase().includes('salesforce') || key.toLowerCase().includes('skipredirect')) {
+                console.log('[SF Default Page EXT] Detected global:', key, window[key]);
+            }
+        }
+    } catch (e) {
+        console.log('[SF Default Page EXT] Error scanning globals:', e);
+    }
     
 })();

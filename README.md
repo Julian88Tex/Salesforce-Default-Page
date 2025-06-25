@@ -11,7 +11,7 @@ Skip the Salesforce home page and automatically redirect to your preferred Sales
 - **Smart detection**: Only redirects after a fresh login (not on page refreshes or navigation)
 - **Works everywhere**: Supports Salesforce CLI (`sf org open`), all org types, sandbox and production
 
-## 🚀 Installation
+## 🚀 How to Install Unreleased Versions
 
 There are two ways to install this extension.
 
@@ -35,7 +35,7 @@ Once you have the extension folder, follow these steps:
 4. **Select the extension folder** (e.g., `Salesforce-Default-Page`).
 5. The extension will now be active and appear in your Chrome toolbar.
 
-## 🧪 How to Use
+## 🧪 How to Test Unreleased Versions
 
 1. **Click the extension icon** in the Chrome toolbar
 2. **Choose your default page** from the dropdown, or select "Custom Page..." and use "Use Current Page" to capture the current Lightning page

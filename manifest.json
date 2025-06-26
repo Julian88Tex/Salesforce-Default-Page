@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Salesforce Default Page",
-  "version": "0.41",
+  "version": "0.42",
   "description": "Set a default page to open when first logging into Salesforce",
   "permissions": [
     "activeTab",
-    "scripting",
     "storage"
   ],
   "host_permissions": [

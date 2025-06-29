@@ -1,4 +1,5 @@
-// popup.js - Handle extension popup functionality with SLDS styling (v0.16)
+// popup.js - Handle extension popup functionality with SLDS styling (v0.43)
+// Enhanced Safe Browsing compliant version
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get all elements with error checking
@@ -18,14 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check if all required elements exist
     if (!activeToggle || !themeToggleSwitch || !defaultPageSelect || !customPageInput || !customPageGroup || !useCurrentPageBtn) {
-        console.error('Required DOM elements not found:', {
-            activeToggle: !!activeToggle,
-            themeToggleSwitch: !!themeToggleSwitch,
-            defaultPageSelect: !!defaultPageSelect,
-            customPageInput: !!customPageInput,
-            customPageGroup: !!customPageGroup,
-            useCurrentPageBtn: !!useCurrentPageBtn
-        });
         return;
     }
     
@@ -199,60 +192,40 @@ document.addEventListener('DOMContentLoaded', function() {
     function setTheme(theme) {
         document.body.setAttribute('data-theme', theme);
         
-        // Update theme toggle switch
+        // Update theme toggle switch state
         if (themeToggleSwitch) {
             themeToggleSwitch.checked = theme === 'dark';
         }
     }
     
     function updateUI(isEnabled) {
+        // Update toggle state
         if (activeToggle) {
             activeToggle.checked = isEnabled;
         }
-        if (customPageInput) {
-            customPageInput.disabled = !isEnabled;
-            if (!isEnabled) {
-                customPageInput.classList.add('slds-disabled');
-            } else {
-                customPageInput.classList.remove('slds-disabled');
+        
+        // Update UI elements based on enabled state
+        const elementsToDisable = [defaultPageSelect, customPageInput, useCurrentPageBtn];
+        elementsToDisable.forEach(element => {
+            if (element) {
+                element.disabled = !isEnabled;
+                if (!isEnabled) {
+                    element.classList.add('slds-input_disabled');
+                } else {
+                    element.classList.remove('slds-input_disabled');
+                }
             }
-        }
-        if (useCurrentPageBtn) {
-            useCurrentPageBtn.disabled = !isEnabled;
+        });
+        
+        // Update custom page group visibility
+        if (customPageGroup) {
             if (!isEnabled) {
-                useCurrentPageBtn.classList.add('slds-disabled');
-            } else {
-                useCurrentPageBtn.classList.remove('slds-disabled');
+                customPageGroup.classList.add('hidden');
+                customPageGroup.classList.remove('show');
+            } else if (defaultPageSelect && defaultPageSelect.value === 'custom') {
+                customPageGroup.classList.remove('hidden');
+                customPageGroup.classList.add('show');
             }
-        }
-        if (isEnabled) {
-            if (defaultPageSelect) defaultPageSelect.disabled = false;
-        } else {
-            if (defaultPageSelect) defaultPageSelect.disabled = true;
         }
     }
-    
-    // Update button state based on current page
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        if (tabs[0] && useCurrentPageBtn) {
-            const url = tabs[0].url;
-            const lightningPath = extractLightningPath(url);
-            
-            if (!lightningPath) {
-                useCurrentPageBtn.disabled = true;
-                useCurrentPageBtn.textContent = 'Not Lightning';
-                useCurrentPageBtn.classList.add('slds-button_disabled');
-                useCurrentPageBtn.style.background = '#e0e0e0';
-                useCurrentPageBtn.style.color = '#888';
-                useCurrentPageBtn.style.borderColor = '#ccc';
-            } else {
-                useCurrentPageBtn.disabled = false;
-                useCurrentPageBtn.textContent = 'Use Current Page';
-                useCurrentPageBtn.classList.remove('slds-button_disabled');
-                useCurrentPageBtn.style.background = '';
-                useCurrentPageBtn.style.color = '';
-                useCurrentPageBtn.style.borderColor = '';
-            }
-        }
-    });
 });

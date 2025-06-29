@@ -1,58 +1,114 @@
-# 🏠 Salesforce Default Page Extension
+# Salesforce Default Page Extension
 
-Skip the Salesforce home page and automatically redirect to your preferred Salesforce page after login.
+A Chrome extension that allows you to set a custom default page when logging into Salesforce, instead of being redirected to the standard home page.
 
-## ✨ Features
+## Features
 
-- **Auto-redirect after login**: Go straight to Deployment Status, User Management, or any page of your choice
-- **Active toggle**: Easily enable or disable the redirect feature
-- **Light/Dark mode**: Switch between light and dark extension themes
-- **Custom page capture**: Click "Use Current Page" to set any Lightning page as your default
-- **Smart detection**: Only redirects after a fresh login (not on page refreshes or navigation)
-- **Works everywhere**: Supports Salesforce CLI (`sf org open`), all org types, sandbox and production
+- Set a custom default page for Salesforce login
+- Support for common Salesforce pages (Deployment, Users, Profiles, etc.)
+- Custom page paths support
+- Light/Dark theme toggle
+- Enhanced Safe Browsing compliant
 
-## 🚀 How to Install Unreleased Versions
+## Installation
 
-There are two ways to install this extension.
+### From Chrome Web Store (Recommended)
+1. Visit the Chrome Web Store listing
+2. Click "Add to Chrome"
+3. Confirm the installation
 
-### Option 1: For Most Users (Easy)
-1. Go to the **[Releases page](https://github.com/Julian88Tex/Salesforce-Default-Page/releases)**.
-2. Under the latest release, download the `Source code (zip)` file.
-3. Unzip the file. You will have a folder named something like `Salesforce-Default-Page-0.41`.
+### Manual Installation (Developer Mode)
+1. Download or clone this repository
+2. Open Chrome and go to `chrome://extensions/`
+3. Enable "Developer mode" in the top right
+4. Click "Load unpacked" and select the extension folder
+5. The extension will be installed and ready to use
 
-### Option 2: For Developers (Using Git)
-Clone this repository to your local machine:
-```sh
-git clone https://github.com/Julian88Tex/Salesforce-Default-Page.git
-```
-This will create a `Salesforce-Default-Page` folder with the latest code.
+## Usage
 
-### Loading the Extension in Chrome
-Once you have the extension folder, follow these steps:
-1. **Open Chrome** and navigate to `chrome://extensions/`.
-2. **Turn on "Developer mode"** in the top-right corner.
-3. Click **"Load unpacked"**.
-4. **Select the extension folder** (e.g., `Salesforce-Default-Page`).
-5. The extension will now be active and appear in your Chrome toolbar.
+1. Click the extension icon in your Chrome toolbar
+2. Choose your preferred default page from the dropdown
+3. Or enter a custom Lightning page path
+4. Toggle the extension on/off as needed
+5. Log into Salesforce and you'll be redirected to your chosen page
 
-## 🧪 How to Test Unreleased Versions
+## Supported Pages
 
-1. **Click the extension icon** in the Chrome toolbar
-2. **Choose your default page** from the dropdown, or select "Custom Page..." and use "Use Current Page" to capture the current Lightning page
-3. **Toggle "Active"** to enable or disable the redirect feature
-4. **(Optional) Toggle "Dark Mode"** for a dark theme
-5. **Log out of Salesforce** completely
-6. **Log back in** → You should be redirected to your chosen default page after login
-7. **Test with Salesforce CLI**: Run `sf org open -o <org-name>` and confirm the redirect works after CLI login
+- **Deployment**: Setup > Deployment > Deployment Status
+- **Users**: Setup > Users > Users
+- **Profiles**: Setup > Users > Profiles
+- **Permission Sets**: Setup > Users > Permission Sets
+- **Flows**: Setup > Process Automation > Flows
+- **Apex Classes**: Setup > Apex Classes
+- **Objects**: Setup > Object Manager
+- **Home**: Standard Salesforce home page
+- **Custom**: Any custom Lightning page path
 
-## 🛠️ Reporting Issues
+## Security & Privacy
 
-- Click the **Report Issues** link in the extension popup or go directly to the **[Issues page](https://github.com/Julian88Tex/Salesforce-Default-Page/issues)**.
-- Please check for existing issues and provide as much detail as possible, including your browser/OS version and steps to reproduce.
+This extension is designed with security and privacy in mind:
 
-## 💡 Testing Tips
+- **No data collection**: The extension does not collect or transmit any personal information
+- **Local storage only**: All settings are stored locally in your browser
+- **Limited permissions**: Only accesses Salesforce domains
+- **Enhanced Safe Browsing compliant**: Follows Chrome's security best practices
 
-- **Test in incognito** for a fresh login simulation
-- **Try with `sf org open`** from Salesforce CLI
-- **Custom pages**: Navigate to any Lightning page, click "Use Current Page" to set as default
-- **Check the console** (F12) if issues occur
+### Enhanced Safe Browsing
+
+If you see a warning about "This extension is not trusted by Enhanced Safe Browsing", this is normal for extensions not published on the Chrome Web Store. The extension is safe to use and includes:
+
+- Content Security Policy (CSP) restrictions
+- Minimal required permissions
+- No external data transmission
+- Privacy policy compliance
+- Secure coding practices
+
+To trust the extension:
+1. Click "Details" in the warning
+2. Click "Continue to site" or "Allow"
+3. The extension will work normally
+
+## Permissions
+
+- **activeTab**: Required to interact with Salesforce pages
+- **storage**: Required to save your preferences locally
+- **host_permissions**: Limited to Salesforce domains only
+
+## Development
+
+### Version History
+- v0.43: Enhanced Safe Browsing compliance improvements
+- v0.42: Previous version
+- [See full changelog for earlier versions]
+
+### Building from Source
+1. Clone the repository
+2. Make your changes
+3. Test in Chrome's developer mode
+4. Update version number in `manifest.json`
+
+## Troubleshooting
+
+### Extension Not Working
+1. Ensure you're on a Salesforce domain
+2. Check that the extension is enabled
+3. Try refreshing the Salesforce page
+4. Clear browser cache and cookies
+
+### Enhanced Safe Browsing Warning
+This is normal for unpublished extensions. The extension is safe and follows security best practices.
+
+## Privacy Policy
+
+See [PRIVACY_POLICY.md](PRIVACY_POLICY.md) for detailed information about data handling and privacy.
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Support
+
+For issues or questions:
+1. Check the troubleshooting section above
+2. Review the privacy policy
+3. Create an issue in the repository

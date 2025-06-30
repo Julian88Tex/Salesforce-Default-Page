@@ -1,21 +1,10 @@
 const puppeteer = require('puppeteer');
 
 describe('Salesforce Default Page Popup UI', () => {
-  let browser;
   let page;
   let extensionId;
 
   beforeAll(async () => {
-    browser = await puppeteer.launch({
-      headless: 'new',
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        `--disable-extensions-except=${process.cwd()}`,
-        `--load-extension=${process.cwd()}`
-      ]
-    });
-
     const targets = await browser.targets();
     const extensionTarget = targets.find(target => target.type() === 'background_page' || target.type() === 'service_worker');
     if (!extensionTarget) {
@@ -23,10 +12,6 @@ describe('Salesforce Default Page Popup UI', () => {
     }
     const extensionUrl = extensionTarget.url() || '';
     [, , extensionId] = extensionUrl.split('/');
-  });
-
-  afterAll(async () => {
-    await browser.close();
   });
 
   beforeEach(async () => {

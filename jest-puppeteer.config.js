@@ -1,11 +1,11 @@
 module.exports = {
   launch: {
-    headless: false,
+    headless: process.env.CI ? 'new' : false,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      `--disable-extensions-except=${__dirname}`,
-      `--load-extension=${__dirname}`
+      `--disable-extensions-except=${__dirname}/src`,
+      `--load-extension=${__dirname}/src`
     ]
   },
   browserContext: 'default'

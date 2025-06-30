@@ -1,4 +1,4 @@
-// popup.js - Handle extension popup functionality with SLDS styling (v0.43)
+// popup.js - Handle extension popup functionality with SLDS styling
 // Enhanced Safe Browsing compliant version
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 customPageGroup.classList.remove('show');
                 chrome.storage.sync.set({'defaultPage': value});
             }
+            updateUI(activeToggle.checked);
         });
     }
     
@@ -203,28 +204,30 @@ document.addEventListener('DOMContentLoaded', function() {
         if (activeToggle) {
             activeToggle.checked = isEnabled;
         }
+
+        const isCustomSelected = defaultPageSelect && defaultPageSelect.value === 'custom';
         
         // Update UI elements based on enabled state
-        const elementsToDisable = [defaultPageSelect, customPageInput, useCurrentPageBtn];
-        elementsToDisable.forEach(element => {
-            if (element) {
-                element.disabled = !isEnabled;
-                if (!isEnabled) {
-                    element.classList.add('slds-input_disabled');
-                } else {
-                    element.classList.remove('slds-input_disabled');
-                }
+        if (defaultPageSelect) defaultPageSelect.disabled = !isEnabled;
+        if (customPageInput) customPageInput.disabled = !isEnabled;
+        if (useCurrentPageBtn) useCurrentPageBtn.disabled = !isEnabled || !isCustomSelected;
+
+        // Add/remove disabled classes for styling
+        [defaultPageSelect, customPageInput].forEach(el => {
+            if(el) {
+                if (!isEnabled) el.classList.add('slds-input_disabled');
+                else el.classList.remove('slds-input_disabled');
             }
         });
-        
+
         // Update custom page group visibility
         if (customPageGroup) {
-            if (!isEnabled) {
-                customPageGroup.classList.add('hidden');
-                customPageGroup.classList.remove('show');
-            } else if (defaultPageSelect && defaultPageSelect.value === 'custom') {
+            if (isEnabled && isCustomSelected) {
                 customPageGroup.classList.remove('hidden');
                 customPageGroup.classList.add('show');
+            } else {
+                customPageGroup.classList.add('hidden');
+                customPageGroup.classList.remove('show');
             }
         }
     }

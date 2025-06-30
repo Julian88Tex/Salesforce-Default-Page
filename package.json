@@ -1,0 +1,12 @@
+{
+  "name": "salesforce-default-page-extension",
+  "version": "0.1.0",
+  "description": "Automated tests for Salesforce Default Page Chrome Extension",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2"
+  }
+}

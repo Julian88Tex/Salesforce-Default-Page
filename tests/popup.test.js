@@ -1,6 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
+// Read manifest to get the real version
+const manifestPath = path.join(__dirname, '../src/manifest.json');
+const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+const extensionVersion = manifest.version;
+
 // Mock the chrome object before modules are loaded
 global.chrome = {
   storage: {
@@ -14,7 +19,7 @@ global.chrome = {
     },
   },
   runtime: {
-    getManifest: jest.fn(() => ({ version: '1.0' })),
+    getManifest: jest.fn(() => ({ version: extensionVersion })),
   },
   tabs: {
     query: jest.fn(),
@@ -93,7 +98,7 @@ describe('Popup UI Logic', () => {
 
   it('should display the correct version number', () => {
     const versionDisplay = document.getElementById('version-display');
-    expect(versionDisplay.textContent).toBe('v1.0');
+    expect(versionDisplay.textContent).toBe(`v${extensionVersion}`);
   });
 
   describe('Use Current Page button', () => {

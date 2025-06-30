@@ -17,7 +17,7 @@ beforeAll(() => {
     },
     runtime: {
       getManifest: () => {
-        return { version: '0.43' };
+        return { version: '0.45' };
       },
       onMessage: {
         addListener: jest.fn(),

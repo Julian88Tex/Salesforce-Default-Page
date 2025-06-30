@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 customPageGroup.classList.remove('show');
                 chrome.storage.sync.set({'defaultPage': value});
             }
+            updateUI(activeToggle.checked);
         });
     }
     

@@ -1,5 +1,5 @@
 module.exports = {
-  preset: 'jest-puppeteer',
-  testTimeout: 30000,
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['./tests/setup.js'],
   testMatch: ['**/tests/**/*.test.js'],
 }; 

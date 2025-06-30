@@ -1,4 +1,4 @@
-// content.js - Lightning Experience default page redirect after login (v0.44)
+// content.js - Lightning Experience default page redirect after login
 // Enhanced Safe Browsing compliant version
 
 (function() {

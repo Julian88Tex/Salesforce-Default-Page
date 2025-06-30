@@ -21,7 +21,7 @@ A Chrome extension that allows you to set a custom default page when logging int
 1. Download or clone this repository
 2. Open Chrome and go to `chrome://extensions/`
 3. Enable "Developer mode" in the top right
-4. Click "Load unpacked" and select the extension folder
+4. Click "Load unpacked" and select the `src` folder within the extension directory
 5. The extension will be installed and ready to use
 
 ## Usage
@@ -84,7 +84,7 @@ To trust the extension:
 ### Building from Source
 1. Clone the repository
 2. Make your changes
-3. Test in Chrome's developer mode
+3. To test, go to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the `src` folder.
 4. Update version number in `manifest.json`
 
 ## Troubleshooting

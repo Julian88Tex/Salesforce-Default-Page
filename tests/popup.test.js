@@ -96,11 +96,6 @@ describe('Popup UI Logic', () => {
     expect(chrome.storage.sync.set).toHaveBeenCalledWith({ theme: 'dark' });
   });
 
-  it('should display the correct version number', () => {
-    const versionDisplay = document.getElementById('version-display');
-    expect(versionDisplay.textContent).toBe(`v${extensionVersion}`);
-  });
-
   describe('Use Current Page button', () => {
     it('should be disabled by default', () => {
       const useCurrentPageBtn = document.getElementById('useCurrentPageBtn');

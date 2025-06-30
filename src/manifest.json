@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Salesforce Default Page",
-  "version": "0.43",
+  "version": "0.44",
   "description": "Set a default page to open when first logging into Salesforce",
   "permissions": [
     "activeTab",
@@ -21,7 +21,7 @@
         "*://*.lightning.force.com/*",
         "*://*.my.salesforce.com/*"
       ],
-      "js": ["content.js"],
+      "js": ["content-logic.js", "content.js"],
       "run_at": "document_start"
     }
   ],

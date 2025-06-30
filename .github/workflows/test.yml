@@ -28,4 +28,4 @@ jobs:
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: npm install
       - name: Run tests
-        run: npm test 
+        run: npm test

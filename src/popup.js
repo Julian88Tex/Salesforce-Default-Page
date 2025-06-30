@@ -1,4 +1,4 @@
-// popup.js - Handle extension popup functionality with SLDS styling (v0.43)
+// popup.js - Handle extension popup functionality with SLDS styling (v0.44)
 // Enhanced Safe Browsing compliant version
 
 document.addEventListener('DOMContentLoaded', function() {

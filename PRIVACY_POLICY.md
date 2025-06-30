@@ -1,6 +1,6 @@
 # Privacy Policy for Salesforce Default Page Extension
 
-**Last updated:** December 2024
+**Last updated:** June 2025
 
 ## Overview
 The Salesforce Default Page Extension is a browser extension that helps users set a custom default page when logging into Salesforce. This privacy policy explains how we handle your data.
